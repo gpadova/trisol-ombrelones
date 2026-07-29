@@ -1,0 +1,321 @@
+@import "tailwindcss";
+
+/* ============================================================
+   TriSol Ombrelones — design tokens (committed identity)
+   Palette lifted from the printed 2026 catalog. See DESIGN.md.
+   ============================================================ */
+@theme {
+  --color-bg: #ffffff;
+  --color-paper: oklch(0.985 0.004 70);
+  --color-ink: oklch(0.17 0.006 30);
+  --color-ink-2: oklch(0.22 0.006 30);
+  --color-body: oklch(0.34 0.006 45);
+  --color-muted: oklch(0.52 0.006 45);
+  --color-faint: oklch(0.66 0.006 45);
+  --color-line: oklch(0.9 0.004 60);
+  --color-line-strong: oklch(0.82 0.004 60);
+
+  --color-red: oklch(0.58 0.24 26);
+  --color-red-deep: oklch(0.5 0.22 26);
+  --color-red-wash: oklch(0.965 0.028 26);
+
+  /* fabric / structure finishes — swatch truth, not UI theme */
+  --color-taupe: oklch(0.66 0.02 70);
+  --color-fendi: oklch(0.8 0.015 75);
+  --color-sand: oklch(0.86 0.02 80);
+  --color-khaki: oklch(0.72 0.02 85);
+  --color-marrom: oklch(0.3 0.02 50);
+  --color-black-fab: oklch(0.22 0.004 40);
+  --color-wooden: oklch(0.62 0.06 65);
+  --color-marinho: oklch(0.3 0.06 250);
+  --color-flora: oklch(0.36 0.06 155);
+  --color-gris: oklch(0.76 0.004 60);
+
+  --font-sans: var(--font-archivo);
+
+  --shadow-lift: 0 18px 40px -24px oklch(0.17 0.006 30 / 0.35);
+  --shadow-photo: 0 30px 60px -30px oklch(0.17 0.006 30 / 0.4);
+
+  --ease-out-quint: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+
+  --z-nav: 200;
+  --z-menu: 250;
+  --z-toast: 500;
+}
+
+/* ---- base (layered so Tailwind utilities like text-white always win) ---- */
+@layer base {
+  * {
+    border-color: var(--color-line);
+  }
+
+  html {
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+  }
+
+  body {
+    background: var(--color-bg);
+    color: var(--color-body);
+    font-family: var(--font-sans), system-ui, sans-serif;
+    font-synthesis-weight: none;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  ::selection {
+    background: var(--color-red);
+    color: #fff;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-red);
+    outline-offset: 3px;
+    border-radius: 3px;
+  }
+
+  h1,
+  h2,
+  h3 {
+    color: var(--color-ink);
+    text-wrap: balance;
+    letter-spacing: -0.02em;
+  }
+
+  p {
+    text-wrap: pretty;
+  }
+}
+
+/* ---- type utilities ---- */
+.display {
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  line-height: 0.95;
+}
+
+.eyebrow {
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  font-size: clamp(0.68rem, 0.62rem + 0.2vw, 0.78rem);
+  color: var(--color-muted);
+}
+
+.measure {
+  max-width: 62ch;
+}
+
+/* ---- layout helpers ---- */
+.shell {
+  width: 100%;
+  max-width: 1280px;
+  margin-inline: auto;
+  padding-inline: clamp(1.25rem, 5vw, 4rem);
+}
+
+.rule {
+  height: 3px;
+  width: 2.5rem;
+  background: var(--color-red);
+  border-radius: 2px;
+}
+
+/* ---- buttons ---- */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.55rem;
+  min-height: 3rem;
+  padding-inline: 1.5rem;
+  border-radius: 999px;
+  font-weight: 600;
+  font-size: 0.95rem;
+  letter-spacing: -0.01em;
+  line-height: 1;
+  cursor: pointer;
+  transition:
+    transform 0.35s var(--ease-out-quint),
+    background-color 0.25s ease,
+    color 0.25s ease,
+    border-color 0.25s ease,
+    box-shadow 0.35s var(--ease-out-quint);
+  white-space: nowrap;
+}
+.btn:active {
+  transform: translateY(1px);
+}
+
+.btn-primary {
+  background: var(--color-red-deep);
+  color: #fff;
+}
+.btn-primary:hover {
+  background: oklch(0.45 0.2 26);
+  box-shadow: var(--shadow-lift);
+  transform: translateY(-2px);
+}
+
+.btn-ghost {
+  border: 1px solid currentColor;
+  color: var(--color-ink);
+  background: transparent;
+}
+.btn-ghost:hover {
+  background: var(--color-ink);
+  color: #fff;
+  transform: translateY(-2px);
+}
+
+.btn-ghost-light {
+  border: 1px solid oklch(1 0 0 / 0.4);
+  color: #fff;
+  background: transparent;
+}
+.btn-ghost-light:hover {
+  background: #fff;
+  color: var(--color-ink);
+  border-color: #fff;
+  transform: translateY(-2px);
+}
+
+/* ---- spec chips ---- */
+.chip {
+  display: inline-flex;
+  flex-direction: column;
+  gap: 0.15rem;
+  padding: 0.55rem 0.85rem;
+  border: 1px solid var(--color-line);
+  border-radius: 10px;
+  background: var(--color-bg);
+}
+.chip-k {
+  font-size: 0.62rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--color-muted);
+}
+.chip-v {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--color-ink);
+  letter-spacing: -0.01em;
+}
+
+/* ---- reveal-on-scroll (enhances an already-visible default) ----
+   Resting state is fully VISIBLE, so no-JS, headless renderers, hidden tabs,
+   and a never-firing observer all show content. The entrance only plays when
+   the observer adds .is-in, via a one-shot animation (fill backwards supplies
+   the from-state during the stagger delay). */
+.js .reveal.is-in {
+  animation: rise 0.85s var(--ease-out-expo) both;
+  animation-delay: var(--reveal-delay, 0ms);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .js .reveal.is-in {
+    animation: none;
+  }
+}
+
+/* ---- hero load choreography ---- */
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(28px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+@keyframes fade {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@keyframes spin-slow {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.js .load {
+  opacity: 0;
+  animation: rise 1s var(--ease-out-expo) forwards;
+  animation-delay: var(--load-delay, 0ms);
+}
+.js .load-fade {
+  opacity: 0;
+  animation: fade 1.4s ease forwards;
+  animation-delay: var(--load-delay, 0ms);
+}
+
+.burst-spin {
+  animation: spin-slow 60s linear infinite;
+  transform-origin: center;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .js .load,
+  .js .load-fade {
+    opacity: 1;
+    animation: none;
+  }
+  .burst-spin {
+    animation: none;
+  }
+}
+
+/* ---- photo hover ---- */
+.photo-zoom {
+  overflow: hidden;
+}
+.photo-zoom img {
+  transition: transform 0.9s var(--ease-out-quint);
+}
+.photo-zoom:hover img {
+  transform: scale(1.04);
+}
+@media (prefers-reduced-motion: reduce) {
+  .photo-zoom img {
+    transition: none;
+  }
+  .photo-zoom:hover img {
+    transform: none;
+  }
+}
+
+/* ---- marquee ---- */
+@keyframes marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+.marquee-track {
+  display: inline-flex;
+  animation: marquee 32s linear infinite;
+}
+.marquee:hover .marquee-track {
+  animation-play-state: paused;
+}
+@media (prefers-reduced-motion: reduce) {
+  .marquee-track {
+    animation: none;
+  }
+}
