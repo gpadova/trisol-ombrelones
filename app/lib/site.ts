@@ -1,11 +1,13 @@
 // ============================================================
 // TriSol Ombrelones — site configuration
 //
-// ⚠️  WHATSAPP: PLACEHOLDER — troque pelo número real da TriSol.
-//     Formato E.164 sem símbolos: 55 (Brasil) + DDD + número.
-//     Ex.: "5511999999999". Todos os botões de orçamento usam isto.
+// WhatsApp de orçamentos — formato E.164 sem símbolos:
+// 55 (Brasil) + DDD + número. Todos os botões de orçamento usam isto.
 // ============================================================
-export const WHATSAPP_NUMBER = "5548999632211";
+export const WHATSAPP_NUMBER = "5548991375030";
+
+/** Mesmo número, formatado para leitura humana. */
+export const WHATSAPP_DISPLAY = "(48) 99137-5030";
 
 export const SITE = {
   name: "TriSol Ombrelones",

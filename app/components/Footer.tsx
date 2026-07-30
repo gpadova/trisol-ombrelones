@@ -3,6 +3,7 @@ import { Wordmark, SunBurst } from "./Brand";
 import {
   whatsappHref,
   GENERAL_QUOTE_MSG,
+  WHATSAPP_DISPLAY,
   SITE,
 } from "../lib/site";
 
@@ -86,7 +87,7 @@ export function Footer() {
               rel="noopener noreferrer"
               className="text-[0.98rem] text-white/75 transition-colors hover:text-white"
             >
-              WhatsApp · orçamento
+              WhatsApp · {WHATSAPP_DISPLAY}
             </a>
             <a
               href={`https://${SITE.domain}`}
