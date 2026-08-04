@@ -213,16 +213,24 @@
 
 /* ---- reveal-on-scroll (enhances an already-visible default) ----
    Resting state is fully VISIBLE, so no-JS, headless renderers, hidden tabs,
-   and a never-firing observer all show content. The entrance only plays when
-   the observer adds .is-in, via a one-shot animation (fill backwards supplies
-   the from-state during the stagger delay). */
+   and a never-firing observer all show content. Reveal.tsx adds .is-armed only
+   to elements still off screen — never to something the user can already see,
+   since that snap from visible to hidden is what reads as a flicker. .is-in
+   then plays the entrance, its backwards fill continuing the armed from-state
+   through the stagger delay with no gap. */
+.js .reveal.is-armed {
+  opacity: 0;
+}
+
 .js .reveal.is-in {
   animation: rise 0.85s var(--ease-out-expo) both;
   animation-delay: var(--reveal-delay, 0ms);
 }
 
 @media (prefers-reduced-motion: reduce) {
+  .js .reveal.is-armed,
   .js .reveal.is-in {
+    opacity: 1;
     animation: none;
   }
 }
